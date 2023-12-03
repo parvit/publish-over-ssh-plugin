@@ -53,10 +53,11 @@ public class BapSshPromotionPublisherPlugin extends Notifier implements SimpleBu
 
     @DataBoundConstructor
     public BapSshPromotionPublisherPlugin(final ArrayList<BapSshPublisher> publishers, final boolean continueOnError,
-                                          final boolean failOnError, final boolean alwaysPublishFromMaster, final String masterNodeName,
+                                          final boolean failOnError, final boolean alwaysPublishFromMaster,
+                                                                                    final String masterNodeName,
                                           final BapSshParamPublish paramPublish) {
-        this.delegate = new BapSshPublisherPlugin(publishers, continueOnError, failOnError, alwaysPublishFromMaster, masterNodeName,
-                                                  paramPublish);
+        this.delegate = new BapSshPublisherPlugin(publishers, continueOnError, failOnError, alwaysPublishFromMaster,
+          masterNodeName, paramPublish);
     }
 
     @Override

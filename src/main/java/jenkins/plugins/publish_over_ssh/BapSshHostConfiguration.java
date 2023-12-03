@@ -30,7 +30,6 @@ import hudson.model.Describable;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Properties;
 
 import hudson.util.Secret;
@@ -237,8 +236,13 @@ public class BapSshHostConfiguration extends BPHostConfiguration<BapSshClient, B
         this.secretProxyPassword = secretProxyPassword;
     }
 
-    public boolean isAvoidSameFileUploads() {
-      return avoidSameFileUploads;
+    public boolean getAvoidSameFileUploads() {
+      return getCommonConfig().isAvoidSameFileUploads() || avoidSameFileUploads;
+    }
+
+    @DataBoundSetter
+    public void setAvoidSameFileUploads(boolean avoidSameFileUploads) {
+      this.avoidSameFileUploads = avoidSameFileUploads;
     }
 
     @Override
@@ -263,6 +267,7 @@ public class BapSshHostConfiguration extends BPHostConfiguration<BapSshClient, B
     @Override
     public BapSshClient createClient(final BPBuildInfo buildInfo, final BapPublisher publisher) {
         if(publisher instanceof BapSshPublisher) {
+            setAvoidSameFileUploads( ((BapSshPublisher) publisher).isAvoidSameFileUploads() );
             return createClient(buildInfo, ((BapSshPublisher) publisher).isSftpRequired());
         }
         throw new IllegalArgumentException("Invalid type passed to createClient");
@@ -279,7 +284,7 @@ public class BapSshHostConfiguration extends BPHostConfiguration<BapSshClient, B
         String[] hosts = getHosts();
         Session session = createSession(buildInfo, ssh, hosts[0], getPort());
         configureAuthentication(buildInfo, ssh, session);
-        final BapSshClient bapClient = new BapSshClient(buildInfo, session, isEffectiveDisableExec(), isAvoidSameFileUploads());
+        final BapSshClient bapClient = new BapSshClient(buildInfo, session, isEffectiveDisableExec(), getAvoidSameFileUploads());
         try {
             connect(buildInfo, session);
             for (int i = 1; i < hosts.length; i++) {

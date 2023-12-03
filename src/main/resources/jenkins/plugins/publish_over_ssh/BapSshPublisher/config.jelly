@@ -61,6 +61,9 @@
         <f:optionalProperty title="${m.retry()}" field="sshRetry"/>
         <f:optionalProperty title="${m.label()}" field="sshLabel"/>
     </f:advanced>
+    <f:entry field="avoidSameFileUploads">
+      <poj:checkbox title="${%avoidSameFileUploads}" default="${defaults.publisher.avoidSameFileUploads}"/>
+    </f:entry>
 
     <f:entry title="${m.transfers_section()}">
         <j:scope>

@@ -33,7 +33,7 @@
     </parent>
 
     <properties>
-        <revision>1.26</revision>
+        <revision>1.26.5</revision>
         <changelist>-SNAPSHOT</changelist>
         <gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
         <jenkins.version>2.361.4</jenkins.version>

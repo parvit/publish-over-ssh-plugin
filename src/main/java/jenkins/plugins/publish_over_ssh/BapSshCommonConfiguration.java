@@ -39,18 +39,26 @@ public class BapSshCommonConfiguration extends BapSshKeyInfo implements Describa
 
     private final boolean disableAllExec;
 
+    private final boolean avoidSameFileUploads;
+
     @DataBoundConstructor
-    public BapSshCommonConfiguration(final String encryptedPassphrase, final String key, 
-                                     final String keyPath, final boolean disableAllExec) {
+    public BapSshCommonConfiguration(final String encryptedPassphrase, final String key,
+                                     final String keyPath, final boolean disableAllExec, final boolean avoidSameFileUploads)
+    {
         super(encryptedPassphrase, key, keyPath);
         this.disableAllExec = disableAllExec;
+        this.avoidSameFileUploads = avoidSameFileUploads;
     }
 
     public boolean isDisableAllExec() {
         return disableAllExec;
     }
 
-    public BapSshCommonConfigurationDescriptor getDescriptor() {
+    public boolean isAvoidSameFileUploads() {
+    return avoidSameFileUploads;
+  }
+
+  public BapSshCommonConfigurationDescriptor getDescriptor() {
         return Jenkins.getInstance().getDescriptorByType(BapSshCommonConfigurationDescriptor.class);
     }
 

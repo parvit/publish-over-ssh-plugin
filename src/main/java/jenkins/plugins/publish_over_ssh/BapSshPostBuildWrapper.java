@@ -50,8 +50,8 @@ public class BapSshPostBuildWrapper extends BuildWrapper {
     public BapSshPostBuildWrapper(final ArrayList<BapSshPublisher> publishers, final boolean continueOnError, final boolean failOnError,
                                   final boolean alwaysPublishFromMaster, final String masterNodeName,
                                   final BapSshParamPublish paramPublish) {
-        postBuild = new BapSshAlwaysRunPublisherPlugin(publishers, continueOnError, failOnError, alwaysPublishFromMaster, masterNodeName,
-                                                       paramPublish);
+        postBuild = new BapSshAlwaysRunPublisherPlugin(publishers, continueOnError, failOnError, alwaysPublishFromMaster,
+                                                        masterNodeName, paramPublish);
     }
 
     public BapSshPublisherPlugin getPostBuild() {

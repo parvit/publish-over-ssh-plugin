@@ -29,10 +29,10 @@
     <j:set var="defaults" value="${descriptor.defaults}"/>
 
     <poj:defaultMessages/>
-    
+
     <j:set var="plugin" value="${instance}"/>
     <j:set var="instance" value="${instance.delegate}"/>
-    
+
     <st:once>
         <script type="text/javascript" src="${rootURL}/plugin/publish-over-ssh/js/pos.js" />
         <script type="text/javascript">

@@ -67,7 +67,7 @@ public class LegacyConfigurationTest {
         assertEquals(1, configurations.size());
         final BapSshHostConfiguration expected = prepare("default", "hostname", "username", "password", "", null,
                                                                        DEFAULT_PORT, DEFAULT_TIMEOUT, true, "", "", false);
-        expected.setCommonConfig(new BapSshCommonConfiguration("", "", "", false));
+        expected.setCommonConfig(new BapSshCommonConfiguration("", "", "", false, false));
         assertEquals(expected, configurations.get(0));
 
         final int expectedExecTimeout = 120000;
@@ -107,7 +107,7 @@ public class LegacyConfigurationTest {
         final List<BapSshPublisher> prePublishers = Collections.singletonList(
                                         newPublisher(configName('a'), false, new ArrayList<BapSshTransfer>(preTransfers)));
         final BapSshPreBuildWrapper expectedPreBuildPlugin = new BapSshPreBuildWrapper(new ArrayList<BapSshPublisher>(prePublishers),
-                                                                                       false, true, false, "", null);
+                                                                                       false, true, false,"", null);
         assertEquals(expectedPreBuildPlugin, getConfiguredBuildWrapper(BapSshPreBuildWrapper.class));
 
         final List<BapSshTransfer> postTransfers = Collections.singletonList(
@@ -132,7 +132,7 @@ public class LegacyConfigurationTest {
                 prepare(configName('d'), hostname('d'), "username.d", "passphrase", "remoteDirectory.d",
                         DEFAULT_JUMPHOST, configDPort, configDTimeout, true, "path/to/key", KEY_2, false)
         };
-        final BapSshCommonConfiguration common = new BapSshCommonConfiguration("hello", COMMON_KEY, "/this/will/be/ignored", false);
+        final BapSshCommonConfiguration common = new BapSshCommonConfiguration("hello", COMMON_KEY, "/this/will/be/ignored", false, false);
         for (BapSshHostConfiguration hostConfig : expectedConfig) {
             hostConfig.setCommonConfig(common);
         }
@@ -246,7 +246,7 @@ public class LegacyConfigurationTest {
     }
 
     private static BapSshPublisher newPublisher(final String configName, final boolean verbose, final ArrayList<BapSshTransfer> transfers) {
-        return new BapSshPublisher(configName, verbose, transfers, false, false, null, null, null);
+        return new BapSshPublisher(configName, verbose, transfers, false, false, null, null, null, false);
     }
 
 }

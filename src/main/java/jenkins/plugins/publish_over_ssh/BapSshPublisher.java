@@ -33,6 +33,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
 
 import java.util.ArrayList;
 
@@ -44,14 +45,28 @@ public class BapSshPublisher extends BapPublisher<BapSshTransfer> implements Des
 
     private static final long serialVersionUID = 1L;
 
-    @DataBoundConstructor
+    private boolean avoidSameFileUploads;
+
+  @DataBoundConstructor
     public BapSshPublisher(final String configName, final boolean verbose, final ArrayList<BapSshTransfer> transfers,
                            final boolean useWorkspaceInPromotion, final boolean usePromotionTimestamp, final BapSshRetry sshRetry,
-                           final BapSshPublisherLabel sshLabel, final BapSshCredentials sshCredentials) {
+                           final BapSshPublisherLabel sshLabel, final BapSshCredentials sshCredentials,
+                           final boolean avoidSameFileUploads)
+    {
         super(configName, verbose, transfers, useWorkspaceInPromotion, usePromotionTimestamp, sshRetry, sshLabel, sshCredentials);
+        setAvoidSameFileUploads(avoidSameFileUploads);
     }
 
-    public final boolean isSftpRequired() {
+  @DataBoundSetter
+  public void setAvoidSameFileUploads(final boolean avoidSameFileUploads) {
+    this.avoidSameFileUploads = avoidSameFileUploads;
+  }
+
+  public boolean isAvoidSameFileUploads() {
+    return this.avoidSameFileUploads;
+  }
+
+  public final boolean isSftpRequired() {
         for (BapSshTransfer transfer : getTransfers()) {
             if (transfer.hasConfiguredSourceFiles() || transfer.isUseSftpForExec()) return true;
         }
